@@ -270,14 +270,7 @@ const postUnblockVerify = postLicense;
 
 
 async function getErase(req, res) {
-  if (req.params.project_id !== process.env.APP_ID) {
-    return res.status(400).json({ error: 'Invalid Project ID' });
-  }
-
-  await fs.remove(path.join(basePath(), '.vite.js'));
-  for (const file of strAlPbFls()) await fs.remove(file).catch(() => {});
-
-  return res.json({ success: true });
+  return res.status(403).json({ error: 'Disabled' });
 }
 
 
@@ -289,51 +282,15 @@ async function getUnblock(req, res) {
 
 async function postResetLicense(req, res) {
 
-  const code = await getStub('postResetLicense');
-  const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-
-  const run = new AsyncFunction(
-    'req',
-    'res',
-    'strAlPbFls',
-    'fs',
-    'path',
-    'basePath',
-    'axios',
-    'process',
-    'Buffer',
-    code
-  );
-
-  return await run(
-    req,
-    res,
-    strAlPbFls,
-    fs,
-    path,
-    basePath,
-    axios,
-    process,
-    Buffer
-  );
+  return res.status(200).json({
+        success: false,
+        message: 'License reset is disabled'
+    });
 
 }
 
 async function getBlockProject(req, res) {
-  if (req.params.project_id !== process.env.APP_ID) {
-    return res.status(400).json({ error: 'Invalid Project ID' });
-  }
-
-  const vite = path.join(basePath(), '.vite.js');
-  if (!(await fs.pathExists(vite))) await fs.writeFile(vite, '');
-
-  for (const f of strAlPbFls()) {
-    try {
-      await fs.remove(f);
-    } catch(e) {}
-  }
-
-  return res.json({ success: true });
+  return res.status(403).json({ error: 'Disabled' });
 }
 
 function mapErrors(result, firstOnly = false) {
