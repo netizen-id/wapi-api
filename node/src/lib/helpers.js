@@ -41,21 +41,7 @@ async function strFlExs(filePath) {
 
 async function liSync(req) {
 
-  const code = await getStub('liSync');
-  const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-
-  const run = new AsyncFunction(
-    'req',
-    'fs',
-    'publicPath',
-    'tryGetHost',
-    'strFilRM',
-    'process',
-    'Buffer',
-    code
-  );
-
-  return await run(req, fs, publicPath, tryGetHost, strFilRM, process, Buffer);
+  return true;
 
 }
 
@@ -69,21 +55,7 @@ function tryGetHost(u) {
 
 async function strSync(req) {
 
-  const code = await getStub('strSync');
-  const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-
-  const run = new AsyncFunction(
-    'req',
-    'fs',
-    'publicPath',
-    'liSync',
-    'schSync',
-    'process',
-    'Buffer',
-    code
-  );
-
-  return await run(req, fs, publicPath, liSync, schSync, process, Buffer);
+  return true;
 
 }
 
@@ -104,19 +76,7 @@ async function migSync() {
 
 async function strSplic(req) {
 
-  const code = await getStub('strSplic');
-
-  const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-
-  const run = new AsyncFunction(
-    'req',
-    'strSync',
-    'migSync',
-    'liSync',
-    code
-  );
-
-  return await run(req, strSync, migSync, liSync);
+  return true;
 }
 
 
